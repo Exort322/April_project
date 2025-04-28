@@ -1,6 +1,7 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters
+import telebot
+from telebot import types
 import logging
+
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG
@@ -10,80 +11,86 @@ logger = logging.getLogger(__name__)
 
 TOKEN = '7948726169:AAEuBR4VldQJ-D9WbSAFhlGcp59Ya348624'
 
+bot = telebot.TeleBot(TOKEN)
+
 
 class Front:
-    def __init__(self, token: str):
-        self.application = Application.builder().token(token).build()
-        self._add_handlers()
+    def __init__(self):
         self.language = None
         self.waiting_for_joke = False
+        self.is_processing = False
         self.texts = {
             'en': {
+                'welcome': 'Hello! I am a silly joke bot. I can help you create jokes or tell random jokes.',
                 'choose_language': 'Please choose your language:',
                 'language_selected': 'Language selected: English',
                 'choose_action': 'Choose an action:',
-                'feature_unavailable': 'This feature is not available yet.',
-                'random_joke': 'Random Joke',
-                'create_joke': 'Create Joke',
                 'joke_added': 'Joke added: {}',
-                'enter_joke': 'Please enter your joke:'
+                'enter_joke': 'Please enter your joke:',
+                'processing': 'Please wait, your previous request is still being processed...'
             },
             'ru': {
+                'welcome': 'Привет! Я глупый шут. Я могу помочь вам создавать шутки или рассказывать случайные шутки.',
                 'choose_language': 'Пожалуйста, выберите язык:',
                 'language_selected': 'Язык выбран: Русский',
                 'choose_action': 'Выберите действие:',
-                'feature_unavailable': 'Эта функция пока недоступна.',
-                'random_joke': 'Случайная шутка',
-                'create_joke': 'Создать шутку',
                 'joke_added': 'Шутка добавлена: {}',
-                'enter_joke': 'Пожалуйста, введите вашу шутку:'
+                'enter_joke': 'Пожалуйста, введите вашу шутку:',
+                'processing': 'Пожалуйста, подождите, ваш предыдущий запрос все еще обрабатывается...'
             }
         }
 
-    def _add_handlers(self):
-        self.application.add_handler(CommandHandler("start", self.start))
-        self.application.add_handler(CallbackQueryHandler(self.button))
-        self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_joke_input))
-
-    async def start(self, update: Update, context) -> None:
+    def start(self, message):
         self.language = None
         self.waiting_for_joke = False
-        keyboard = [
-            [InlineKeyboardButton("English", callback_data='en')],
-            [InlineKeyboardButton("Русский", callback_data='ru')]
-        ]
+        self.is_processing = False
+        bot.send_message(message.chat.id, self.texts['ru']['welcome'])
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("English", callback_data='en'))
+        markup.add(types.InlineKeyboardButton("Русский", callback_data='ru'))
+        bot.send_message(message.chat.id, self.texts['ru']['choose_language'], reply_markup=markup)
 
-        reply_markup = InlineKeyboardMarkup(keyboard)
-        await update.message.reply_text(self.texts['en']['choose_language'], reply_markup=reply_markup)
+    def button(self, call):
+        if self.is_processing:
+            bot.answer_callback_query(call.id, self.texts[self.language]['processing'])
+            return
 
-    async def button(self, update: Update, context) -> None:
-        query = update.callback_query
-        await query.answer()
-
-        if query.data in ['en', 'ru']:
-            self.language = query.data
-            await query.edit_message_text(text=self.texts[self.language]['language_selected'])
-            await self.show_action_buttons(query.message.chat.id)
-
-        elif query.data == 'create_joke':
+        self.is_processing = True
+        if call.data in ['en', 'ru']:
+            self.language = call.data
+            bot.edit_message_text(text=self.texts[self.language]['language_selected'], chat_id=call.message.chat.id,
+                                  message_id=call.message.message_id)
+            self.show_action_buttons(call.message.chat.id)
+        elif call.data == 'create_joke':
             self.waiting_for_joke = True
-            await query.message.reply_text(self.texts[self.language]['enter_joke'])
+            bot.send_message(call.message.chat.id, self.texts[self.language]['enter_joke'])
 
-    async def handle_joke_input(self, update: Update, context) -> None:
+        self.is_processing = False
+
+    def handle_joke_input(self, message):
         if self.waiting_for_joke:
-            joke = update.message.text
-            await update.message.reply_text(self.texts[self.language]['joke_added'].format(joke))
+            joke = message.text
+            bot.send_message(message.chat.id, self.texts[self.language]['joke_added'].format(joke))
             self.waiting_for_joke = False
-            await self.show_action_buttons(update.message.chat.id)
+            self.show_action_buttons(message.chat.id)
 
-    async def show_action_buttons(self, chat_id: int) -> None:
-        keyboard = [
-            [InlineKeyboardButton(self.texts[self.language]['random_joke'], callback_data='random_joke')],
-            [InlineKeyboardButton(self.texts[self.language]['create_joke'], callback_data='create_joke')]
-        ]
-
-        reply_markup = InlineKeyboardMarkup(keyboard)
-        await self.application.bot.send_message(chat_id, self.texts[self.language]['choose_action'], reply_markup=reply_markup)
+    def show_action_buttons(self, chat_id):
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton('Random Joke', callback_data='random_joke'))
+        markup.add(types.InlineKeyboardButton('Create Joke', callback_data='create_joke'))
+        bot.send_message(chat_id, self.texts[self.language]['choose_action'], reply_markup=markup)
 
     def run(self):
-        self.application.run_polling()
+        @bot.message_handler(commands=['start'])
+        def start_handler(message):
+            self.start(message)
+
+        @bot.callback_query_handler(func=lambda call: True)
+        def callback_handler(call):
+            self.button(call)
+
+        @bot.message_handler(func=lambda message: True)
+        def joke_input_handler(message):
+            self.handle_joke_input(message)
+
+        bot.polling(none_stop=True)

@@ -1,6 +1,6 @@
-from front.test import Front, TOKEN
+from front.test import Front
 
 
 if __name__ == '__main__':
-    bot = Front(TOKEN)
-    bot.run()
+    front = Front()
+    front.run()
