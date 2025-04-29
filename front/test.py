@@ -15,10 +15,11 @@ bot = telebot.TeleBot(TOKEN)
 
 
 class Front:
-    def __init__(self):
+    def __init__(self, users_db):
         self.language = None
         self.waiting_for_joke = False
         self.is_processing = False
+        self.users_db = users_db
         self.texts = {
             'en': {
                 'welcome': 'Hello! I am a silly joke bot. I can help you create jokes or tell random jokes.',
@@ -48,6 +49,7 @@ class Front:
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("English", callback_data='en'))
         markup.add(types.InlineKeyboardButton("Русский", callback_data='ru'))
+        self.users_db.new_user(message.chat.id, message.from_user.username)
         bot.send_message(message.chat.id, self.texts['ru']['choose_language'], reply_markup=markup)
 
     def button(self, call):
@@ -84,13 +86,16 @@ class Front:
         @bot.message_handler(commands=['start'])
         def start_handler(message):
             self.start(message)
+            self.users_db.activity(message.from_user.id)
 
         @bot.callback_query_handler(func=lambda call: True)
         def callback_handler(call):
             self.button(call)
+            self.users_db.activity(call.from_user.id)
 
         @bot.message_handler(func=lambda message: True)
         def joke_input_handler(message):
             self.handle_joke_input(message)
+            self.users_db.activity(message.from_user.id)
 
         bot.polling(none_stop=True)
