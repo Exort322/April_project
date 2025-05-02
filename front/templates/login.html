@@ -1,28 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Авторизация</h1>
-<form action="" method="post" novalidate>
+<h1 style="text-align: center; font-size: 2.5em; margin-bottom: 20px;">Авторизация</h1>
+<form action="" method="post" novalidate style="max-width: 400px; margin: auto;">
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.username.label }}<br>
+    
+    <div style="margin-bottom: 20px;">
+        <label>{{ form.username.label }}</label><br>
         {{ form.username(class="form-control") }}<br>
         {% for error in form.username.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
+
+    <div style="margin-bottom: 20px;">
+        <label>{{ form.password.label }}</label><br>
         {{ form.password(class="form-control", type="password") }}<br>
         {% for error in form.password.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    </p>
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+
+    <div style="margin-bottom: 20px;">
+        {{ form.remember_me() }} {{ form.remember_me.label }}
+    </div>
+
+    <div style="text-align: center;">
+        <button type="submit" style="background-color: #fffacd; border: none; padding: 10px 20px; font-size: 1.2em; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+            Войти
+        </button>
+    </div>
 </form>
 {% endblock %}

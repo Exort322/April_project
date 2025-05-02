@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="background-color: rgba(255, 255, 0, 0.5); color: black; font-family: 'Lapsus Pro', sans-serif; text-align: center; font-size: 3em; padding: 20px; border-radius: 10px; margin-left: 20px;">
+<h1 style="background-color: rgba(255, 255, 0, 0.5); color: black; text-align: center; font-size: 3em; padding: 20px; border-radius: 10px; margin-left: 20px;">
     Добро пожаловать!
 </h1>
-<p style="text-align: center; font-size: 1.5em; margin-left: 20px; font-family: 'Lapsus Pro', sans-serif;">Мы рады видеть вас на нашем сайте шуток! 🎉</p>
+<p style="text-align: center; font-size: 1.5em; margin-left: 20px;">Мы рады видеть вас на нашем сайте шуток! 🎉</p>
 
 <div style="margin-top: 40px; margin-left: 20px;">
-    <h2 style="font-size: 2em; background-color: rgba(255, 215, 0, 0.5); padding: 10px; border-radius: 10px; font-family: 'Lapsus Pro', sans-serif;">
+    <h2 style="font-size: 2em; background-color: rgba(255, 215, 0, 0.5); padding: 10px; border-radius: 10px;">
         Случайная шутка
     </h2>
     <div style="font-size: 1.5em; border: 2px solid rgba(255, 215, 0, 0.8); padding: 30px; border-radius: 10px; margin: 20px 0; width: 80%; max-width: 500px;">
@@ -19,4 +19,13 @@
         <button style="background-color: #fffacd; border: none; padding: 10px 20px; font-size: 1.2em; margin: 10px; border-radius: 5px;">Следующая</button>
     </div>
 </div>
+
+<div style="position: absolute; top: 20px; right: 20px;">
+    <a href="{{ url_for('profile') }}">
+        <button style="background-color: #fffacd; border: none; padding: 10px 20px; font-size: 1.2em; border-radius: 5px;">Профиль</button>
+    </a>
+</div>
+
+
+
 {% endblock %}

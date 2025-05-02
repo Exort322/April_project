@@ -32,5 +32,15 @@ def welcome():
     return render_template('index.html')
 
 
+@app.route('/profile')
+def profile():
+    user_data = {
+        'username': 'example_user',
+        'email': 'user@example.com'
+    }
+    return render_template('profile.html', user=user_data)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
