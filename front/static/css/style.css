@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Lapsus Pro';
+    src: url('fonts/ofont.ru_Lapsus Pro.ttf') format('truetype'); /* Убедитесь, что путь правильный */
+    font-weight: normal;
+    font-style: normal;
+}
