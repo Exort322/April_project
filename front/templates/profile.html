@@ -1,23 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Профиль</h1>
-<p><strong>Имя пользователя:</strong> {{ user.username }}</p>
-<p><strong>Email:</strong> {{ user.email }}</p>
 
-<div style="margin-top: 20px;">
-    <a href="{{ url_for('welcome') }}" style="margin-right: 10px;">
-        <button style="background-color: #fffacd; border: none; padding: 10px 20px; font-size: 1.2em; border-radius: 5px;">
-            На главную
-        </button>
-    </a>
+<div class="profile-container">
+    <h1>Профиль</h1>
+    <div class="profile-info">
+        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+
+    <div class="button-container">
+        <a href="{{ url_for('welcome') }}">
+            <button class="button">На главную</button>
+        </a>
+        <a href="{{ url_for('register') }}">
+            <button class="button">Назад к регистрации</button>
+        </a>
+    </div>
 </div>
 
-<div style="margin-top: 20px;">
-    <a href="{{ url_for('register') }}">
-        <button style="background-color: #fffacd; border: none; padding: 10px 20px; font-size: 1.2em; border-radius: 5px; margin-top: 10px;">
-            Назад к регистрации
-        </button>
-    </a>
-</div>
 {% endblock %}
