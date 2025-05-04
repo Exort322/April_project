@@ -9,11 +9,33 @@
     <div class="joke" id="jokeDisplay">
         шутка
     </div>
-    <div>
+
+    <div class="button-container">
         <button class="button">Нравится</button>
         <button class="button">Не нравится</button>
         <button class="button">Следующая</button>
     </div>
+
+    <div class="add-joke-button">
+        <a href="{{ url_for('create_joke') }}">
+            <button class="button">Добавить шутку</button>
+        </a>
+    </div>
+
+    <h2>Популярные шутки</h2>
+    <ul class="popular-jokes">
+        <li>шутка</li>
+        <li>шутка</li>
+        <li>шутка</li>
+    </ul>
+
+    <h2>Рекомендации</h2>
+    <p>Если вам нравятся шутки, попробуйте также:</p>
+    <ul class="recommendations">
+        <li><a href="{{ url_for('create_joke') }}">Добавить свою шутку</a></li>
+        <li><a href="{{ url_for('profile') }}">Посмотреть свой профиль</a></li>
+        <li><a href="#">Поделиться шутками с друзьями</a></li>
+    </ul>
 </div>
 
 <div class="profile-button">

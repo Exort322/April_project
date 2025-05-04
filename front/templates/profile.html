@@ -7,6 +7,8 @@
     <div class="profile-info">
         <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Дата регистрации:</strong> {{ user.registration_date.strftime('%Y-%m-%d') }}</p>
+        <p><strong>Количество добавленных шуток:</strong> {{ user.jokes_count }}</p>
     </div>
 
     <div class="button-container">

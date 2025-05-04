@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="joke-container">
+    <h1>Добавить шутку</h1>
+    <form method="POST" class="auth-form">
+        <div class="form-group">
+            <label for="jokeText">Текст шутки:</label>
+            <textarea id="jokeText" name="jokeText" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="jokeCategory">Тематика шутки:</label>
+            <select id="jokeCategory" name="jokeCategory" class="form-control" required>
+                <option value="">Выберите тематику</option>
+                <option value="анекдоты">Анекдоты</option>
+                <option value="шутки">Шутки</option>
+                <option value="юмор">Юмор</option>
+            </select>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="button">Добавить шутку</button>
+            <button type="button" class="button" onclick="document.getElementById('jokeText').value=''">Очистить поле</button>
+        </div>
+    </form>
+</div>
+
+<div class="button-container">
+    <a href="{{ url_for('welcome') }}">
+        <button class="button">На главную</button>
+    </a>
+</div>
+
+<div class="profile-button">
+    <a href="{{ url_for('profile') }}">
+        <button class="button">Профиль</button>
+    </a>
+</div>
+{% endblock %}
