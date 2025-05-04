@@ -4,24 +4,37 @@
 <div class="joke-container">
     <h1>Добавить шутку</h1>
     <form method="POST" class="auth-form">
+        {{ form.hidden_tag() }}  <!-- Важно: добавляет CSRF-токен -->
+
         <div class="form-group">
-            <label for="jokeText">Текст шутки:</label>
-            <textarea id="jokeText" name="jokeText" class="form-control" rows="4" required></textarea>
+            {{ form.joke_text.label }}
+            {{ form.joke_text(class="form-control", rows=4) }}
+            {% if form.joke_text.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.joke_text.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
         <div class="form-group">
-            <label for="jokeCategory">Тематика шутки:</label>
-            <select id="jokeCategory" name="jokeCategory" class="form-control" required>
-                <option value="">Выберите тематику</option>
-                <option value="анекдоты">Анекдоты</option>
-                <option value="шутки">Шутки</option>
-                <option value="юмор">Юмор</option>
-            </select>
+            {{ form.joke_category.label }}
+            {{ form.joke_category(class="form-control") }}
+            {% if form.joke_category.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.joke_category.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
         <div class="button-container">
-            <button type="submit" class="button">Добавить шутку</button>
-            <button type="button" class="button" onclick="document.getElementById('jokeText').value=''">Очистить поле</button>
+            {{ form.submit(class="button") }}
+            <button type="button" class="button" onclick="document.getElementById('joke_text').value=''">
+                Очистить поле
+            </button>
         </div>
     </form>
 </div>
