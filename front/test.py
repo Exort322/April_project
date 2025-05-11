@@ -1,16 +1,15 @@
 import sys
 from pathlib import Path
-from flask import Flask, render_template, redirect, url_for, flash, session
+from flask import Flask, render_template, redirect, url_for, flash, session, request, jsonify
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, EmailField, TextAreaField, SelectField
 from wtforms.fields.simple import BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Добавляем папку back в путь Python
+
 sys.path.append(str(Path(__file__).parent.parent / "back"))
 
-# Импортируем функции из database.py
 from database import (
     add_user, get_user_by_username, update_user_activity,
     add_joke, get_random_joke, rate_joke, get_popular_jokes,
@@ -133,7 +132,6 @@ def create_joke():
 
     form = JokeForm()
     if form.validate_on_submit():
-        # Важно: проверьте, что эти данные действительно приходят
         print(f"Добавляем шутку: {form.joke_text.data}, категория: {form.joke_category.data}")
 
         joke_id = add_joke(
