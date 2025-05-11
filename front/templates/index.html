@@ -8,7 +8,7 @@
     <h2>Случайная шутка</h2>
     {% if random_joke %}
     <div class="joke" id="jokeDisplay">
-        {{ random_joke.text }}
+        <p class="joke-text">{{ random_joke.text }}</p>
         <p class="joke-author">— {{ random_joke.username }}</p>
     </div>
 
@@ -20,6 +20,7 @@
     {% else %}
     <p>Пока нет шуток. Будьте первым, кто добавит шутку!</p>
     {% endif %}
+
 
     <div class="add-joke-button">
         <a href="{{ url_for('create_joke') }}">
@@ -36,6 +37,18 @@
         </li>
         {% endfor %}
     </ul>
+
+    <div class="joke-of-the-day">
+        <h2>Шутка дня</h2>
+        {% if joke_of_the_day %}
+        <div class="joke" id="jokeOfTheDayDisplay">
+            {{ joke_of_the_day.text }}
+            <p class="joke-author">— {{ joke_of_the_day.username }}</p>
+        </div>
+        {% else %}
+        <p>Шутка дня пока не доступна.</p>
+        {% endif %}
+    </div>
 </div>
 
 <script>
@@ -56,4 +69,10 @@ function rateJoke(jokeId, rating) {
     });
 }
 </script>
+
+<div class="profile-button">
+    <a href="{{ url_for('profile') }}">
+        <button class="button">Профиль</button>
+    </a>
+</div>
 {% endblock %}
