@@ -9,6 +9,13 @@
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Дата регистрации:</strong> {{ user.registration_date.strftime('%Y-%m-%d') }}</p>
         <p><strong>Количество добавленных шуток:</strong> {{ user.jokes_count }}</p>
+        <p><strong>Просмотренные шутки:</strong> {{ user.viewed_jokes_count }}</p>
+        <p><strong>Добавленные шутки:</strong></p>
+        <ul>
+            {% for joke in user.jokes %}
+                <li>{{ joke.content }}</li>
+            {% endfor %}
+        </ul>
     </div>
 
     <div class="button-container">
