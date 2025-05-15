@@ -1,3 +1,4 @@
+import datetime
 import sys
 from pathlib import Path
 from flask import Flask, render_template, redirect, url_for, flash, session, request, jsonify
@@ -85,7 +86,7 @@ def login():
             return redirect(url_for('welcome'))
         else:
             flash('Неверное имя пользователя или пароль', 'danger')
-    return render_template('registration.html', form=form)
+    return render_template('login.html', form=form)
 
 
 @app.route('/logout')
@@ -112,17 +113,29 @@ def welcome():
 
 @app.route('/profile')
 def profile():
-    if 'user_id' not in session:
+    user_id = session.get('user_id')
+    if not user_id:
         return redirect(url_for('login'))
 
-    update_user_activity(session['user_id'])
-    jokes_count = get_user_jokes_count(session['user_id'])
+    user = get_user_by_id(user_id)
 
-    return render_template('profile.html',
-                           user={
-                               'username': session['username'],
-                               'jokes_count': jokes_count
-                           })
+    if user is None:
+        flash('Пользователь не найден.', 'danger')
+        return redirect(url_for('login'))
+
+    return render_template('profile.html', user=user)
+
+
+def get_user_by_id(user_id):
+    user_data = {
+        'username': 'example_user',
+        'email': 'user@example.com',
+        'registration_date': datetime.datetime.now(),
+        'jokes_count': 5,
+        'viewed_jokes_count': 10,
+        'jokes': [{'content': 'Joke 1'}, {'content': 'Joke 2'}]
+    }
+    return user_data
 
 
 @app.route('/create_joke', methods=['GET', 'POST'])
