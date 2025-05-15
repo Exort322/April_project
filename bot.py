@@ -2,6 +2,7 @@ import requests
 import telebot
 from telebot import types
 import logging
+from back.users_db import Users_db
 
 
 logging.basicConfig(
@@ -172,3 +173,9 @@ class Bot:
 
             self.users_db.activity(message.from_user.id)
         bot.polling(none_stop=True)
+
+
+if __name__ == '__main__':
+    users_database = Users_db()
+    front = Bot(users_database)
+    front.run()

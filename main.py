@@ -1,8 +1,5 @@
-from bot import Bot
-from back.users_db import Users_db
+from front.test import app
 
 
 if __name__ == '__main__':
-    users_database = Users_db()
-    front = Bot(users_database)
-    front.run()
+    app.run(host='0.0.0.0', port=5000, debug=True)
