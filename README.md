@@ -9,3 +9,4 @@ WebServer + Бот "Шутка дня"
 Как запустить бота:
 Запустите bot.py
 
+Бот: @ruerueueruruwe_Bot
