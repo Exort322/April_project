@@ -49,7 +49,6 @@ class JokeForm(FlaskForm):
     submit = SubmitField('Добавить шутку')
 
 
-# Роуты
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -66,7 +65,7 @@ def register():
             flash('Регистрация прошла успешно!', 'success')
             session['user_id'] = user_id
             session['username'] = form.username.data
-            return redirect(url_for('welcome'))
+            return redirect(url_for('register'))
     return render_template('registration.html', form=form)
 
 
@@ -93,7 +92,7 @@ def login():
 def logout():
     session.clear()
     flash('Вы успешно вышли из системы', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('register'))
 
 
 @app.route('/welcome')

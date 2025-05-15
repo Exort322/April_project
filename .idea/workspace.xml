@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50cbae55-477d-4ece-ae42-5f5d6899bdbd" name="Changes" comment="интерфейс у бота">
+    <list default="true" id="50cbae55-477d-4ece-ae42-5f5d6899bdbd" name="Changes" comment=".">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/back/users.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/jokes.db" beforeDir="false" afterPath="$PROJECT_DIR$/front/jokes.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/front/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/front/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/front/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,17 +28,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.bot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/чепушик/PycharmProjects/pythonProject15&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.bot.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "C:/Users/чепушик/PycharmProjects/pythonProject15"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\чепушик\PycharmProjects\pythonProject15" />
@@ -195,7 +196,31 @@
       <option name="project" value="LOCAL" />
       <updated>1746899117994</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="команды у бота">
+      <option name="closed" value="true" />
+      <created>1747158305110</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1747158305110</updated>
+    </task>
+    <task id="LOCAL-00015" summary="requirments и исправлена ошибка входа">
+      <option name="closed" value="true" />
+      <created>1747333336667</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1747333336667</updated>
+    </task>
+    <task id="LOCAL-00016" summary=".">
+      <option name="closed" value="true" />
+      <created>1747333968737</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1747333968737</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,12 +248,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="можно записывать шутки" />
-    <MESSAGE value="." />
     <MESSAGE value="авторизация на сайте" />
     <MESSAGE value="профиль пользователя" />
     <MESSAGE value="страница входа" />
     <MESSAGE value="небольшие исправления" />
     <MESSAGE value="интерфейс у бота" />
-    <option name="LAST_COMMIT_MESSAGE" value="интерфейс у бота" />
+    <MESSAGE value="команды у бота" />
+    <MESSAGE value="requirments и исправлена ошибка входа" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
 </project>
